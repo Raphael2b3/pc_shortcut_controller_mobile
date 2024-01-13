@@ -7,7 +7,7 @@ class UdpService {
 
   static Future<UdpService> create() async {
     var udpService = UdpService();
-
+    print("Creating UDP Service");
     udpService.sender = await UDP.bind(Endpoint.any(port: const Port(31103)));
 
     return udpService;
@@ -20,7 +20,7 @@ class UdpService {
     var dataLength = await sender!.send(
         [int.parse(value)], Endpoint.broadcast(port: Port(int.parse(port))));
 
-    stdout.write("$dataLength bytes sent.");
+    print("$dataLength bytes sent via port $port");
   }
 
   void dispose() {
