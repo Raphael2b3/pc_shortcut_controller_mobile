@@ -63,5 +63,5 @@ Setting getIpfromStorage() {
 
 Future<void> storeIpToStorage(String ip) async {
   var storage = StorageService.storage;
-  await storage.setItem('host ip', ip).catchError(() => print("error"));
+  await storage.setItem('ip', ip).catchError(() => print("error"));
 }

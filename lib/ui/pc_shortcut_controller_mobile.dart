@@ -19,7 +19,7 @@ class WritingLyricsMadeComfortable extends StatelessWidget {
     ));
     return SafeArea(
       child: MaterialApp.router(
-        title: "Comfi Lyrics - Writing Lyrics Made Comfortable",
+        title: "Remote Hotkey Invoker",
         routerConfig: _routes,
         theme: ThemeData(
           textTheme: const TextTheme(
