@@ -19,18 +19,21 @@ class ButtonPage extends StatelessWidget {
       children: [
         Expanded(
           child: FutureProvider(
-            lazy: false,
-            updateShouldNotify: (previous, current) {
-              return true;
-            },
-            create: (BuildContext context) => UdpService.create(),
+            create: (_) async => await UdpService.create(),
             initialData: UdpService(),
-            child: ListView(
-              children: appstate.buttons
-                  .map<Widget>((e) => RemoteButtonView(
-                        remoteButton: e,
-                      ))
-                  .toList(),
+            builder: (_, __) => Column(
+              children: [
+                Text("Data Loaded"),
+                Expanded(
+                  child: ListView(
+                    children: appstate.buttons
+                        .map<Widget>((e) => RemoteButtonView(
+                              remoteButton: e,
+                            ))
+                        .toList(),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

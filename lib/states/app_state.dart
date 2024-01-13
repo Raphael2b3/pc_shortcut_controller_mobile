@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:pc_shortcut_controller_mobile/models/remote_button.dart';
 import 'package:pc_shortcut_controller_mobile/models/setting.dart';
-import 'package:pc_shortcut_controller_mobile/state_management/store_restore.dart';
+import 'package:pc_shortcut_controller_mobile/services/storage_service.dart';
 
 class AppState with ChangeNotifier {
   // Define your properties here
@@ -11,12 +11,16 @@ class AppState with ChangeNotifier {
   late List<Setting> buttonsettings;
 
   late Setting portsetting;
-
+  late Setting ipsetting;
   // Constructor
   AppState() {
+    print("creating AppState");
     buttonsettings = getButtonSettingsfromStorage();
     updateButtonsFromSettings(notify: false);
     portsetting = getPortfromStorage();
+    ipsetting = getIpfromStorage();
+    print(
+        "created AppState with ${buttons.length} buttons, port: ${portsetting.value}");
   }
 
   void updateButtonsFromSettings({bool notify = true}) {
@@ -54,9 +58,14 @@ class AppState with ChangeNotifier {
   }
 
   void storeAll() {
+    Future<void> helper() async {
+      await storeButtonSettingsToStorage(buttonsettings);
+      await storePortToStorage(portsetting.value);
+      await storeIpToStorage(ipsetting.value);
+    }
+
     validate();
-    storeButtonSettingsToStorage(buttonsettings);
-    storePortToStorage(portsetting.value);
+    helper().catchError(() async => print("error"));
     updateButtonsFromSettings();
   }
 }

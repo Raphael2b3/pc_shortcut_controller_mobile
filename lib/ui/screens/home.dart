@@ -10,16 +10,14 @@ class Home extends StatelessWidget {
   Home({Key? key, required this.navShell, required this.goRouterState})
       : super(key: key);
 
-  final AppState appstate = AppState();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.hintergrund,
       body: Container(
           padding: const EdgeInsets.all(9),
-          child:
-              ChangeNotifierProvider.value(value: appstate, child: navShell)),
+          child: ChangeNotifierProvider(
+              create: (context) => AppState(), builder: (_, __) => navShell)),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: AppColors.mittelgrund,
         selectedItemColor: AppColors.highattention,

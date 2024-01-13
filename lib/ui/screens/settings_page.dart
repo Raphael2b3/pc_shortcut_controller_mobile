@@ -26,6 +26,10 @@ class SettingsPage extends StatelessWidget {
           setting: appstate.portsetting,
           lockedname: true,
         ),
+        SettingView(
+          setting: appstate.ipsetting,
+          lockedname: true,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
