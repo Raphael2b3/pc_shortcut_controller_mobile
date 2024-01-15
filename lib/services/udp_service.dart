@@ -14,16 +14,14 @@ class UdpService {
     return udpService;
   }
 
-  Future<void> sendIntegerViaUDP(
-      String value, String port, String ipadr) async {
+  Future<void> sendDataViaUDP(String value, String port, String ipadr) async {
     if (sender == null) {
       print("Sender is null");
       return;
     }
 
-    var data = int.parse(value);
     var dataLength =
-        sender!.send([data], InternetAddress(ipadr), int.parse(port));
+        sender!.send(value.codeUnits, InternetAddress(ipadr), int.parse(port));
 
     print("$dataLength bytes sent via port $port to host $ipadr");
   }

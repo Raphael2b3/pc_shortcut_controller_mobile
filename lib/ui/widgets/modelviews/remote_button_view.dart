@@ -16,7 +16,7 @@ class RemoteButtonView extends StatelessWidget {
 
     void send() {
       udpService
-          .sendIntegerViaUDP(remoteButton.id, appstate.portsetting.value,
+          .sendDataViaUDP(remoteButton.id, appstate.portsetting.value,
               appstate.ipsetting.value)
           .whenComplete(() => print("sent"));
     }
