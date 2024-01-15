@@ -14,7 +14,13 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appstate = Provider.of<AppState>(context);
-    print(appstate.buttonsettings.length);
+
+    void onDelete(Setting setting) {
+      appstate.buttonsettings.remove(setting);
+      appstate.updateButtonsFromSettings();
+    }
+
+    print("length");
     return Column(
       children: [
         Votebutton(
@@ -60,6 +66,7 @@ class SettingsPage extends StatelessWidget {
             children: appstate.buttonsettings
                 .map<SettingView>((e) => SettingView(
                       setting: e,
+                      onDelete: onDelete,
                     ))
                 .toList(),
           ),

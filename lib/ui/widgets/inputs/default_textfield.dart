@@ -5,26 +5,19 @@ class DefaultTextField extends StatefulWidget {
   final String hintText;
   final String defaultText;
   final void Function(String value) onChange;
-
-  const DefaultTextField({
+  final TextEditingController controller;
+  DefaultTextField({
     super.key,
     required this.hintText,
     required this.onChange,
     this.defaultText = "",
-  });
+  }) : controller = TextEditingController(text: defaultText);
 
   @override
   State<DefaultTextField> createState() => _DefaultTextFieldState();
 }
 
 class _DefaultTextFieldState extends State<DefaultTextField> {
-  late TextEditingController controller;
-  @override
-  void initState() {
-    super.initState();
-    controller = TextEditingController(text: widget.defaultText);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -40,14 +33,14 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
             setState(() {});
             widget.onChange(val);
           },
-          controller: controller,
+          controller: widget.controller,
           textAlignVertical: TextAlignVertical.center,
           style: TextStyles.small,
           decoration: InputDecoration(
-              hintStyle: TextStyles.hintText,
-              hintText: widget.hintText,
-              contentPadding: const EdgeInsets.only(left: 13),
-              border: const OutlineInputBorder(borderSide: BorderSide.none)),
+            hintStyle: TextStyles.hintText,
+            hintText: widget.hintText,
+            contentPadding: const EdgeInsets.only(left: 13),
+          ),
           cursorColor: AppColors.highattention,
         ),
       ),

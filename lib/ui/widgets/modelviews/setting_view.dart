@@ -7,14 +7,17 @@ import 'package:pc_shortcut_controller_mobile/ui/widgets/primitives/default_card
 class SettingView extends StatelessWidget {
   final Setting setting;
   final bool lockedname;
-  const SettingView({
+  final void Function(Setting) onDelete;
+  SettingView({
     super.key,
+    onDelete,
     required this.setting,
     this.lockedname = false,
-  });
+  }) : onDelete = onDelete ?? ((_) {});
 
   @override
   Widget build(BuildContext context) {
+    print("build settingview with ${setting.name}");
     return DefaultRowCard(
       children: [
         if (lockedname)
@@ -40,6 +43,16 @@ class SettingView extends StatelessWidget {
             onChange: (value) {
               setting.value = value;
             }),
+        if (!lockedname)
+          //delete button
+          IconButton(
+            icon: const Icon(Icons.delete),
+            color: AppColors.lowattention,
+            onPressed: () {
+              print("delete ${setting.name}");
+              onDelete(this.setting);
+            },
+          ),
       ],
     );
   }
